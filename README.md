@@ -35,7 +35,7 @@ Here's a sample runner configuration.
 ```php
 $classmap_path = __DIR__ . '/../vendor/composer/autoload_classmap.php';
 $loader = new \Phantestic\TestLoader\ClassmapObjectTestLoader($classmap_path);
-$handlers = [ new \Phantestic\TestProcessor\CliReporter ];
+$handlers = [ new \Phantestic\TestHandler\CliReporter ];
 $runner = new \Phantestic\TestRunner\LocalTestRunner($loader, $handlers);
 $runner->run();
 ```
