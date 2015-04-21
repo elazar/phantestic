@@ -26,7 +26,7 @@ As an example, [`LocalTestRunner`](https://github.com/elazar/phantestic/blob/mas
 
 When its `run()` method is called, `LocalTestRunner` handles injecting an [event emitter](https://github.com/igorw/evenement/blob/master/src/Evenement/EventEmitterInterface.php) into the handler objects. At that point, those objects can register callbacks with the emitter for any events that may be relevant to them.
 
-An example of a handler is [`CliReporter`](https://github.com/elazar/phantestic/blob/master/src/TestProcessor/CliReporter.php), which outputs the results of tests to `stdout` as they are received and a failure summary once all tests have been run.
+An example of a handler is [`CliReporter`](https://github.com/elazar/phantestic/blob/master/src/TestHandler/CliReporter.php), which outputs the results of tests to `stdout` as they are received and a failure summary once all tests have been run.
 
 ## Configuring a Runner
 
