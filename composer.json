@@ -1,0 +1,20 @@
+{
+    "name": "elazar/phantestic",
+    "description": "A small PHP testing framework",
+    "keywords": [ "testing", "test", "qa" ],
+    "license": "BSD-2-Clause",
+    "support": {
+        "email": "me@matthewturland.com",
+        "issues": "https://github.com/elazar/phantestic/issues",
+        "source": "https://github.com/elazar/phantestic"
+    },
+    "require": {
+        "php": ">=5.4.2",
+        "evenement/evenement": "^2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Phantestic\\": "src"
+        }
+    }
+}
