@@ -50,6 +50,12 @@ class CliReporter implements TestHandlerInterface
                 echo $e->getMessage(), PHP_EOL;
                 echo $e->getTraceAsString(), PHP_EOL, PHP_EOL;
             }
+            register_shutdown_function([$this, 'returnExitStatus']);
         }
+    }
+
+    public function returnExitStatus()
+    {
+        exit(1);
     }
 }
