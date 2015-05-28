@@ -42,7 +42,7 @@ class ComposerClassmapObjectTestLoader implements TestLoaderInterface
         $path,
         EventEmitterInterface $emitter = null,
         $file = '/Test\.php$/',
-        $method = '/^test.*/',
+        $method = '/^test/',
         $class = '\\Phantestic\\TestCase\\TestCase'
     )
     {
