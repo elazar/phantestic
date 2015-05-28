@@ -46,7 +46,7 @@ $runner->run();
 
 Theoretically, tests can be anything [callable](http://php.net/manual/en/language.types.callable.php). The test loader may restrict this to specific types of callables (e.g. [`ClassmapObjectTestLoader`](https://github.com/elazar/phantestic/blob/master/src/TestLoader/ClassmapObjectTestLoader.php) only supports instance methods). The test loader wraps test callbacks in an instance of a class implementing [`TestCaseInterface`](https://github.com/elazar/phantestic/blob/master/src/TestCase/TestCaseInterface.php), such as the default [`TestCase`](https://github.com/elazar/phantestic/blob/master/src/TestCase/TestCase.php) implementation.
 
-Failures can be indicated by throwing an [`exception`](http://php.net/manual/en/language.exceptions.php). Other statuses can be indicating by throwing an instance of a subclass of [`TestResult`](https://github.com/elazar/phantestic/blob/master/src/TestResult/TestResult.php). `TestCase` [converts errors to exceptions](http://php.net/manual/en/class.errorexception.php#errorexception.examples) and considers any uncaught exception to indicate failure. Likewise, no exception being thrown indicates success.
+Failures can be indicated by throwing an [exception](http://php.net/manual/en/language.exceptions.php). Other statuses can be indicating by throwing an instance of a subclass of [`TestResult`](https://github.com/elazar/phantestic/blob/master/src/TestResult/TestResult.php). `TestCase` [converts errors to exceptions](http://php.net/manual/en/class.errorexception.php#errorexception.examples) and considers any uncaught exception to indicate failure. Likewise, no exception being thrown indicates success.
 
 ```php
 // src/Adder.php
