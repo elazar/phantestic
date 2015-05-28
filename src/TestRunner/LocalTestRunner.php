@@ -6,7 +6,7 @@ use Evenement\EventEmitter;
 use Evenement\EventEmitterInterface;
 use Phantestic\TestHandler\TestHandlerInterface;
 
-class TestRunner
+class LocalTestRunner
 {
     /**
      * @var \Evenement\EventEmitterInterface
