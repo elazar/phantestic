@@ -76,6 +76,17 @@ class AdderTest
 
 ## Writing Test Handlers
 
+Test handlers implement [`TestHandlerInterface`](https://github.com/elazar/phantestic/blob/master/src/TestHandler/TestHandlerInterface.php), which has a single method: `setEventEmitter()`. This method receives an instance of [`EventEmitterInterface`](https://github.com/igorw/evenement/blob/master/src/Evenement/EventEmitterInterface.php) as its only argument. Within its implementation of `setEventEmitter()`, a test handler can use this argument to register event callbacks. An example of this is below, taken from [`CliReporter`](https://github.com/elazar/phantestic/blob/master/src/TestHandler/CliReporter.php), which registers its own methods as callbacks for several events.
+
+```php
+public function setEventEmitter(EventEmitterInterface $emitter)
+{
+    $emitter->on('phantestic.test.failresult', [$this, 'handleFail']);
+    $emitter->on('phantestic.test.passresult', [$this, 'handlePass']);
+    $emitter->on('phantestic.tests.after', [$this, 'printSummary']);
+}
+```
+
 Supported events may vary depending on the test loader and runner in use.
 
 ### [`LocalTestRunner`](https://github.com/elazar/phantestic/blob/master/src/TestRunner/LocalTestRunner.php)
