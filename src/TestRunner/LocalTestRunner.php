@@ -33,7 +33,7 @@ class LocalTestRunner
     {
         $this->registerHandlers();
 
-        $emitter = $this->getEmitter();
+        $emitter = $this->getEventEmitter();
 
         $emitter->emit('phantestic.tests.before', [$this]);
 
