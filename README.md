@@ -78,7 +78,7 @@ class AdderTest
 
 Supported events may vary depending on the test loader and runner in use.
 
-### [`LocalTestRunner`](https://github.com/elazar/phantestic/blob/master/src/TestRunner/LocalTestRunner.php).
+### [`LocalTestRunner`](https://github.com/elazar/phantestic/blob/master/src/TestRunner/LocalTestRunner.php)
 
 * `phantestic.tests.before`: Before any tests are run, with the test runner as an argument
 * `phantestic.tests.after`: After all tests are run, with the test runner as an argument
