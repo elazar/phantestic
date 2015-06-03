@@ -4,7 +4,7 @@ namespace Phantestic\TestLoader;
 
 use Evenement\EventEmitterInterface;
 
-class ComposerClassmapObjectTestLoader implements TestLoaderInterface
+class ComposerClassmapObjectTestLoader implements \IteratorAggregate
 {
     /**
      * @var string

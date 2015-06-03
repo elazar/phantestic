@@ -14,7 +14,7 @@ class LocalTestRunner
     protected $emitter;
 
     /**
-     * @var \Phantestic\TestLoader\TestLoaderInterface
+     * @var \Traversable
      */
     protected $loader;
 
@@ -23,7 +23,7 @@ class LocalTestRunner
      */
     protected $handlers;
 
-    public function __construct(TestLoaderInterface $loader, array $handlers = [])
+    public function __construct(\Traversable $loader, array $handlers = [])
     {
         $this->loader = $loader;
         $this->handlers = $handlers;
