@@ -18,7 +18,7 @@ Use [Composer](https://getcomposer.org).
 
 ## Components
 
-A **test loader** loads the test to be run. It can be anything that implements [`\Traversable`](http://php.net/manual/en/class.traversable.php) (i.e. an instance of a class that implements [`\Iterator`](http://php.net/manual/en/class.iterator.php) or [`\IteratorAggregate`](http://php.net/manual/en/class.iteratoraggregate.php), such as [`Generator`](http://php.net/manual/en/class.generator.php)) to allow the loaded tests to be iterable.
+A **test loader** loads the test to be run. It can be anything that implements [`\Traversable`](http://php.net/manual/en/class.traversable.php) (i.e. an instance of a class that implements [`\IteratorAggregate`](http://php.net/manual/en/class.iteratoraggregate.php) or [`\Iterator`](http://php.net/manual/en/class.iterator.php) , such as [`\Generator`](http://php.net/manual/en/class.generator.php)) to allow loaded tests to be iterable.
 
 The **test runner** uses the test loader to load tests, run them, and in the process emit multiple events that **handlers** can intercept and act upon.
 
