@@ -1,6 +1,6 @@
 <?php
 
-namespace Phantestic\TestProcessor;
+namespace Phantestic\TestHandler;
 
 use Evenement\EventEmitterInterface;
 use Phantestic\TestHandler\TestHandlerInterface;
