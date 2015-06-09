@@ -82,7 +82,7 @@ class LocalTestRunner
         }
 
         $emitter = $this->getEventEmitter();
-        foreach ($handlers as $handler) {
+        foreach ($this->handlers as $handler) {
             $handler->setEventEmitter($emitter);
         }
     }
