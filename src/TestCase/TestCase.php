@@ -53,8 +53,11 @@ class TestCase implements TestCaseInterface
         return $this->result;
     }
 
-    protected function convertErrorToException($severity, $message, $file, $line)
+    /**
+     * @throws \ErrorException
+     */
+    public function convertErrorToException($severity, $message, $file, $line)
     {
-        throw new ErrorException($message, 0, $severity, $file, $line);
+        throw new \ErrorException($message, 0, $severity, $file, $line);
     }
 }
