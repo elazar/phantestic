@@ -33,12 +33,14 @@ class CliReporter implements TestHandlerInterface
     {
         $emitter->on('phantestic.test.failresult', [$this, 'handleFail']);
         $emitter->on('phantestic.test.passresult', [$this, 'handlePass']);
-        $emitter->on('phantestic.tests.before', [$this, 'startMetrics']);
-        $emitter->on('phantestic.tests.after', [$this, 'printSummary']);
+        $emitter->on('phantestic.tests.before', [$this, 'beforeTests']);
+        $emitter->on('phantestic.tests.after', [$this, 'afterTests']);
     }
 
-    public function startMetrics()
+    public function beforeTests()
     {
+        echo 'Phantestic by Matthew Turland', PHP_EOL, PHP_EOL;
+
         $this->time = microtime(true);
     }
 
@@ -56,7 +58,7 @@ class CliReporter implements TestHandlerInterface
         $this->passes[] = $case;
     }
 
-    public function printSummary()
+    public function afterTests()
     {
         $time = $this->formatTime(microtime(true) - $this->time);
         $memory = $this->formatMemory(memory_get_peak_usage(true));
@@ -73,8 +75,8 @@ class CliReporter implements TestHandlerInterface
             $no = 0;
             foreach ($this->failures as $case) {
                 $exception = $case->getResult()->getException();
-                echo ++$no, ') ', $e->getMessage(), PHP_EOL;
-                echo $e->getTraceAsString(), PHP_EOL, PHP_EOL;
+                echo ++$no, ') ', $exception->getMessage(), PHP_EOL;
+                echo $exception->getTraceAsString(), PHP_EOL, PHP_EOL;
             }
             register_shutdown_function([$this, 'returnExitStatus']);
         }
