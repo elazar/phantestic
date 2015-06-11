@@ -13,9 +13,4 @@ interface TestCaseInterface
      * @return \Phantestic\TestResult\TestResult
      */
     public function getResult();
-
-    /**
-     * @return callable
-     */
-    public function getCallback();
 }

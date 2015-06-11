@@ -53,14 +53,6 @@ class TestCase implements TestCaseInterface
         return $this->result;
     }
 
-    /**
-     * @return callable
-     */
-    public function getCallback()
-    {
-        return $this->callback;
-    }
-
     protected function convertErrorToException($severity, $message, $file, $line)
     {
         throw new ErrorException($message, 0, $severity, $file, $line);
