@@ -60,7 +60,7 @@ abstract class ClassmapObjectTestLoader implements \IteratorAggregate
             $reflector = new \ReflectionClass($class);
             $methods = $reflector->getMethods(\ReflectionMethod::IS_PUBLIC & ~\ReflectionMethod::IS_STATIC);
             foreach ($methods as $method) {
-                if (!preg_match($this->method, $method)) {
+                if (!preg_match($this->method, $method->name)) {
                     continue;
                 }
                 $instance = new $class;
