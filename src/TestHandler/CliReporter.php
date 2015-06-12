@@ -100,7 +100,7 @@ class CliReporter implements TestHandlerInterface
             $formatted[] = $m . 'm';
             $time %= 60;
         }
-        $formatted[] = number_format($time, 2) . 's';
+        $formatted[] = number_format($time, 4) . 's';
         return implode(' ', $formatted);
     }
 
