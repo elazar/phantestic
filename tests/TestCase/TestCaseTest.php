@@ -13,7 +13,7 @@ class TestCaseTest
     public function testRunWithPassingTest()
     {
         $callback = function() { };
-        $case = new TestCase($callback);
+        $case = new TestCase($callback, 'name');
         $case->run();
         $this->assertInstanceOf('\Phantestic\TestResult\PassResult', $case->getResult());
     }
@@ -21,7 +21,7 @@ class TestCaseTest
     public function testRunWithFailingTest()
     {
         $callback = function() { throw new \RuntimeException('test failure'); };
-        $case = new TestCase($callback);
+        $case = new TestCase($callback, 'name');
         $case->run();
         $this->assertInstanceOf('\Phantestic\TestResult\FailResult', $case->getResult());
     }
@@ -30,7 +30,7 @@ class TestCaseTest
     {
         $result = new TestResult('test result');
         $callback = function() use ($result) { throw $result; };
-        $case = new TestCase($callback);
+        $case = new TestCase($callback, 'name');
         $case->run();
         $this->assertSame($result, $case->getResult());
     }

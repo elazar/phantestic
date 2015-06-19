@@ -10,6 +10,11 @@ interface TestCaseInterface
     public function run();
 
     /**
+     * @return string
+     */
+    public function getName();
+
+    /**
      * @return \Phantestic\TestResult\TestResult
      */
     public function getResult();

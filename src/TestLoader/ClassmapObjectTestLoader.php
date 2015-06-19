@@ -64,7 +64,8 @@ abstract class ClassmapObjectTestLoader implements \IteratorAggregate
                     continue;
                 }
                 $instance = new $class;
-                $test = new $case([$instance, $method->name]);
+                $name = $class . '->' . $method->name;
+                $test = new $case([$instance, $method->name], $name);
                 $tests[] = $test;
                 if ($this->emitter) {
                     $this->emitter->emit('phantestic.loader.loaded', [$test, $instance, $class, $method->name]);

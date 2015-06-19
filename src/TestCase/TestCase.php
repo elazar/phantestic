@@ -14,13 +14,23 @@ class TestCase implements TestCaseInterface
     protected $callback;
 
     /**
+     * @var string
+     */
+    protected $name;
+
+    /**
      * @var \Phantestic\TestResult\TestResultInterface
      */
     protected $result;
 
-    public function __construct(callable $callback)
+    /**
+     * @param callback $callback
+     * @param string $name
+     */
+    public function __construct(callable $callback, $name)
     {
         $this->callback = $callback;
+        $this->name = $name;
     }
 
     /**
@@ -43,6 +53,14 @@ class TestCase implements TestCaseInterface
         }
 
         restore_error_handler();
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**

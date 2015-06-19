@@ -32,7 +32,7 @@ class CliReporterTest
     public function testHandleFail()
     {
         ob_start();
-        $case = new TestCase(function(){});
+        $case = new TestCase(function(){}, 'name');
         $this->emitter->emit('phantestic.test.failresult', [$case]);
         $this->assertSame('F', ob_get_clean());
     }
@@ -40,7 +40,7 @@ class CliReporterTest
     public function testHandlePass()
     {
         ob_start();
-        $case = new TestCase(function(){});
+        $case = new TestCase(function(){}, 'name');
         $this->emitter->emit('phantestic.test.passresult', [$case]);
         $this->assertSame('.', ob_get_clean());
     }
@@ -49,7 +49,7 @@ class CliReporterTest
     {
         ob_start();
         $this->emitter->emit('phantestic.tests.before');
-        $case = new TestCase(function(){});
+        $case = new TestCase(function(){}, 'name');
         $this->emitter->emit('phantestic.test.passresult', [$case]);
         $this->emitter->emit('phantestic.tests.after');
         $pattern = "/^\\.\n\n"

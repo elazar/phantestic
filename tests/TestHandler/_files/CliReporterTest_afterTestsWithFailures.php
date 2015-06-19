@@ -13,7 +13,7 @@ $handler->setEventEmitter($emitter);
 $emitter->emit('phantestic.tests.before');
 
 $e = new \Exception('test failed');
-$case = new TestCase(function() use ($e) { throw $e; });
+$case = new TestCase(function() use ($e) { throw $e; }, 'name');
 $case->run();
 
 $emitter->emit('phantestic.test.failresult', [$case]);
