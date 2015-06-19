@@ -5,9 +5,9 @@ namespace Phantestic\Tests\TestHandler;
 use Evenement\EventEmitter;
 use Phantestic\TestAssertions;
 use Phantestic\TestCase\TestCase;
-use Phantestic\TestHandler\CliReporter;
+use Phantestic\TestHandler\CliOutputTestHandler;
 
-class CliReporterTest
+class CliOutputTestHandlerTest
 {
     use TestAssertions;
 
@@ -18,7 +18,7 @@ class CliReporterTest
     public function __construct()
     {
         $this->emitter = new EventEmitter;
-        $this->handler = new CliReporter;
+        $this->handler = new CliOutputTestHandler;
         $this->handler->setEventEmitter($this->emitter);
     }
 
@@ -60,7 +60,7 @@ class CliReporterTest
 
     public function testAfterTestsWithFailures()
     {
-        $file = __DIR__ . '/_files/CliReporterTest_afterTestsWithFailures.php';
+        $file = __DIR__ . '/_files/CliOutputTestHandlerTest_afterTestsWithFailures.php';
         $spec = [
             0 => ['pipe', 'r'],
             1 => ['pipe', 'w'],

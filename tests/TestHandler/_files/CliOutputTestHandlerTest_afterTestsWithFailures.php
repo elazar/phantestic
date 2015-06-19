@@ -4,10 +4,10 @@ require __DIR__ . '/../../../vendor/autoload.php';
 
 use Evenement\EventEmitter;
 use Phantestic\TestCase\TestCase;
-use Phantestic\TestHandler\CliReporter;
+use Phantestic\TestHandler\CliOutputTestHandler;
 
 $emitter = new EventEmitter;
-$handler = new CliReporter;
+$handler = new CliOutputTestHandler;
 $handler->setEventEmitter($emitter);
 
 $emitter->emit('phantestic.tests.before');
