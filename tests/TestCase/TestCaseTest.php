@@ -34,4 +34,10 @@ class TestCaseTest
         $case->run();
         $this->assertSame($result, $case->getResult());
     }
+
+    public function testGetName()
+    {
+        $test = new TestCase(function(){}, 'foo');
+        $this->assertSame('foo', $test->getName());
+    }
 }
