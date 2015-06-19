@@ -41,4 +41,20 @@ trait TestAssertions
             throw new \DomainException($message);
         }
     }
+
+    public function assertCount($expected, $haystack, $message = '')
+    {
+        $actual = count($haystack);
+        if ($actual !== $expected) {
+            if (empty($message)) {
+                $message = 'Expected '
+                    . var_export($haystack, true)
+                    . ' to produce count '
+                    . $expected
+                    . ', got count '
+                    . $actual;
+            }
+            throw new \DomainException($message);
+        }
+    }
 }
