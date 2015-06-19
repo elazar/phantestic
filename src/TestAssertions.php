@@ -4,34 +4,40 @@ namespace Phantestic;
 
 trait TestAssertions
 {
-    public function assertInstanceOf($class, $object)
+    public function assertInstanceOf($expected, $actual, $message = '')
     {
-        if (!$object instanceof $class) {
-            $message = 'Object '
-                . var_export($object, true)
-                . ' is not an instance of class '
-                . $class;
+        if (!$actual instanceof $expected) {
+            if (empty($message)) {
+                $message = 'Object '
+                    . var_export($actual, true)
+                    . ' is not an instance of class '
+                    . $expected;
+            }
             throw new \DomainException($message);
         }
     }
 
-    public function assertSame($value1, $value2)
+    public function assertSame($expected, $actual, $message = '')
     {
-        if ($value1 !== $value2) {
-            $message = var_export($value1, true)
-                . ' is not identical to '
-                . var_export($value2, true);
+        if ($expected !== $actual) {
+            if (empty($message)) {
+                $message = var_export($expected, true)
+                    . ' is not identical to '
+                    . var_export($actual, true);
+            }
             throw new \DomainException($message);
         }
     }
 
-    public function assertRegExp($pattern, $subject)
+    public function assertRegExp($pattern, $string, $message)
     {
-        if (preg_match($pattern, $subject) === 0) {
-            $message = 'String '
-                . var_export($subject, true)
-                . ' does not match pattern '
-                . var_export($pattern, true);
+        if (preg_match($pattern, $string) === 0) {
+            if (empty($message)) {
+                $message = 'String '
+                    . var_export($string, true)
+                    . ' does not match pattern '
+                    . var_export($pattern, true);
+            }
             throw new \DomainException($message);
         }
     }
