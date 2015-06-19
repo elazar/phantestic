@@ -29,7 +29,7 @@ trait TestAssertions
         }
     }
 
-    public function assertRegExp($pattern, $string, $message)
+    public function assertRegExp($pattern, $string, $message = '')
     {
         if (preg_match($pattern, $string) === 0) {
             if (empty($message)) {
