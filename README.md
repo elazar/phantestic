@@ -4,6 +4,8 @@ A small PHP testing framework that aims to be simple, fast, modern, and flexible
 
 Currently in a very alpha state. Feel free to mess around with it, but expect things to break.
 
+[![Build Status](https://secure.travis-ci.org/elazar/phantestic.png?branch=master)](http://travis-ci.org/elazar/phantestic)
+
 ## Installation
 
 Use [Composer](https://getcomposer.org).
