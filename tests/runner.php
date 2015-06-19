@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 require __DIR__ . '/../vendor/autoload.php';
 $classmap_path = __DIR__ . '/classmap.php';
