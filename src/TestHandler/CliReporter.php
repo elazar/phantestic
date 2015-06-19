@@ -75,7 +75,8 @@ class CliReporter implements TestHandlerInterface
             $no = 0;
             foreach ($this->failures as $case) {
                 $exception = $case->getResult()->getException();
-                echo ++$no, ') ', $exception->getMessage(), PHP_EOL;
+                echo ++$no, ') ', $case->getName(), PHP_EOL;
+                echo $exception->getMessage(), PHP_EOL;
                 echo $exception->getTraceAsString(), PHP_EOL, PHP_EOL;
             }
             register_shutdown_function([$this, 'returnExitStatus']);

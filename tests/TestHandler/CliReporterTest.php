@@ -74,7 +74,8 @@ class CliReporterTest
             . "Tests: 1, Passed: 0, Failed: 1\n"
             . "Time: (?:[0-9.]+)s, Memory: (?:[0-9.]+)(?:[bKM])\n\n"
             . "Failures:\n"
-            . "1\\) test failed\n"
+            . "1\\) name\n"
+            . "test failed\n"
             . "#0 {main}%m";
         $this->assertRegExp($pattern, $stdout);
         $this->assertSame(1, $exit);
