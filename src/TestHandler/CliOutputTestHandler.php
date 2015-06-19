@@ -72,10 +72,10 @@ class CliOutputTestHandler implements TestHandlerInterface
 
         if ($failures) {
             echo 'Failures:', PHP_EOL;
-            $no = 0;
+            $number = 0;
             foreach ($this->failures as $case) {
                 $exception = $case->getResult()->getException();
-                echo ++$no, ') ', $case->getName(), PHP_EOL;
+                echo ++$number, ') ', $case->getName(), PHP_EOL;
                 echo $exception->getMessage(), PHP_EOL;
                 echo $exception->getTraceAsString(), PHP_EOL, PHP_EOL;
             }
@@ -92,13 +92,13 @@ class CliOutputTestHandler implements TestHandlerInterface
     {
         $formatted = [];
         if ($time > 3600) {
-            $h = floor($time / 3600);
-            $formatted[] = $h . 'h';
+            $hours = floor($time / 3600);
+            $formatted[] = $hours . 'h';
             $time %= 3600;
         }
         if ($time > 60) {
-            $m = floor($time / 60);
-            $formatted[] = $m . 'm';
+            $minutes = floor($time / 60);
+            $formatted[] = $minutes . 'm';
             $time %= 60;
         }
         $formatted[] = number_format($time, 4) . 's';
