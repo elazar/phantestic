@@ -7,42 +7,62 @@ use Evenement\EventEmitterInterface;
 abstract class ClassmapObjectTestLoader implements \IteratorAggregate
 {
     /**
-     * @var string
-     */
-    protected $file;
-
-    /**
-     * @var string
-     */
-    protected $method;
-
-    /**
      * @var \Evenement\EventEmitterInterface
      */
     protected $emitter;
 
     /**
-     * @var string
+     * @var callable
      */
-    protected $class;
+    protected $filter;
+
+    /**
+     * @var callable
+     */
+    protected $generator;
 
     /**
      * @param \Evenement\EventEmitterInterface $emitter
-     * @param string $file Regular expression used to filter test files from the classmap
-     * @param string $method Regular expression used to filter test methods from classes
-     * @param string $class Fully qualified name of a class that implements TestCaseInterface
+     * @param callable $filter Callback to filter classmap entries for tests,
+     *        with the signature (string $file, string $class, string $method):
+     *        boolean
+     * @param callable $generator Callable to generate a test case instance
+     *        from an associated callback and name, with the signature
+     *        (callable $test, string $name): \Phantestic\TestCase\TestCaseInterface
      */
     public function __construct(
         EventEmitterInterface $emitter = null,
-        $file = '/Test\.php$/',
-        $method = '/^test/',
-        $class = '\\Phantestic\\TestCase\\TestCase'
+        callable $filter = null,
+        callable $generator = null
     )
     {
         $this->emitter = $emitter;
-        $this->file = $file;
-        $this->method = $method;
-        $this->class = $class;
+        $this->filter = $filter ?: $this->getDefaultFilter();
+        $this->generator = $generator ?: $this->getDefaultGenerator();
+    }
+
+    /**
+     * @return callable
+     */
+    protected function getDefaultFilter()
+    {
+        return function($file, $class, $method) {
+            return
+                preg_match('/Test\.php$/', $file)
+                && preg_match('/^test/', $method);
+        };
+    }
+
+    /**
+     * @return callable
+     */
+    protected function getDefaultGenerator()
+    {
+        return function($class, $method) {
+            $callback = [new $class, $method];
+            $name = $class . '->' . $method;
+            return new \Phantestic\TestCase\TestCase($callback, $name);
+        };
     }
 
     /**
@@ -50,25 +70,32 @@ abstract class ClassmapObjectTestLoader implements \IteratorAggregate
      */
     public function getIterator()
     {
-        $case = $this->class;
         $classmap = $this->getClassmap();
+        $filter = $this->filter;
+        $generator = $this->generator;
         $tests = [];
         foreach ($classmap as $class => $file) {
-            if (!preg_match($this->file, $file)) {
-                continue;
-            }
             $reflector = new \ReflectionClass($class);
-            $methods = $reflector->getMethods(\ReflectionMethod::IS_PUBLIC & ~\ReflectionMethod::IS_STATIC);
-            foreach ($methods as $method) {
-                if (!preg_match($this->method, $method->name)) {
-                    continue;
+            $all_methods = array_map(
+                function($method) { return $method->name; },
+                $reflector->getMethods(\ReflectionMethod::IS_PUBLIC & ~\ReflectionMethod::IS_STATIC)
+            );
+            $test_methods = array_filter(
+                $all_methods,
+                function($method) use ($file, $class, $filter) {
+                    return $filter($file, $class, $method);
                 }
-                $instance = new $class;
-                $name = $class . '->' . $method->name;
-                $test = new $case([$instance, $method->name], $name);
-                $tests[] = $test;
-                if ($this->emitter) {
-                    $this->emitter->emit('phantestic.loader.loaded', [$test, $instance, $class, $method->name]);
+            );
+            $test_cases = array_map(
+                function($method) use ($class, $generator) {
+                    return $generator($class, $method);
+                },
+                $test_methods
+            );
+            $tests = array_merge($tests, $test_cases);
+            if ($this->emitter) {
+                foreach (array_combine($test_methods, $test_cases) as $method => $test_case) {
+                    $this->emitter->emit('phantestic.loader.loaded', [$test_case, $class, $method]);
                 }
             }
         }
