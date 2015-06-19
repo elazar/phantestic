@@ -75,7 +75,7 @@ class LocalTestRunner
         );
         if (!empty($invalid)) {
             $classes = implode(', ', array_map('get_class', $invalid));
-            $interface = EventEmitterAwareInterface::class;
+            $interface = 'Phantestic\TestHandler\TestHandlerInterface';
             throw new \DomainException(
                 'Handler classes do not implement ' . $interface . ': ' . $classes
             );
