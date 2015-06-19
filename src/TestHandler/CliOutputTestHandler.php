@@ -6,7 +6,7 @@ use Evenement\EventEmitterInterface;
 use Phantestic\TestHandler\TestHandlerInterface;
 use Phantestic\TestCase\TestCaseInterface;
 
-class CliReporter implements TestHandlerInterface
+class CliOutputTestHandler implements TestHandlerInterface
 {
     /**
      * @var \Phantestic\TestCase\TestCaseInterface[]

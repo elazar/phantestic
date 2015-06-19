@@ -26,7 +26,7 @@ As an example, [`LocalTestRunner`](https://github.com/elazar/phantestic/blob/mas
 
 When its `run()` method is called, [`LocalTestRunner`](https://github.com/elazar/phantestic/blob/master/src/TestRunner/LocalTestRunner.php) handles injecting an [event emitter](https://github.com/igorw/evenement/blob/master/src/Evenement/EventEmitterInterface.php) into the test handler objects, which enables those objects to register callbacks with the emitter for any events that may be relevant to them.
 
-An example of a test handler is [`CliReporter`](https://github.com/elazar/phantestic/blob/master/src/TestHandler/CliReporter.php), which outputs the results of executing tests to `stdout` as they are received and a failure summary once all tests have been run.
+An example of a test handler is [`CliOutputTestHandler`](https://github.com/elazar/phantestic/blob/master/src/TestHandler/CliOutputTestHandler.php), which outputs the results of executing tests to `stdout` as they are received and a failure summary once all tests have been run.
 
 ## Configuring a Runner
 
@@ -37,7 +37,7 @@ Here's a sample runner configuration.
 ```php
 $classmap_path = '../vendor/composer/autoload_classmap.php';
 $loader = new \Phantestic\TestLoader\ClassmapFileObjectTestLoader($classmap_path);
-$handlers = [ new \Phantestic\TestHandler\CliReporter ];
+$handlers = [ new \Phantestic\TestHandler\CliOutputTestHandler ];
 $runner = new \Phantestic\TestRunner\LocalTestRunner($loader, $handlers);
 $runner->run();
 ```
@@ -76,7 +76,7 @@ class AdderTest
 
 ## Writing Test Handlers
 
-Test handlers implement [`TestHandlerInterface`](https://github.com/elazar/phantestic/blob/master/src/TestHandler/TestHandlerInterface.php), which has a single method: `setEventEmitter()`. This method receives an instance of [`EventEmitterInterface`](https://github.com/igorw/evenement/blob/master/src/Evenement/EventEmitterInterface.php) as its only argument. Within its implementation of `setEventEmitter()`, a test handler can use this argument to register event callbacks. An example of this is below, taken from [`CliReporter`](https://github.com/elazar/phantestic/blob/master/src/TestHandler/CliReporter.php), which registers its own methods as callbacks for several events.
+Test handlers implement [`TestHandlerInterface`](https://github.com/elazar/phantestic/blob/master/src/TestHandler/TestHandlerInterface.php), which has a single method: `setEventEmitter()`. This method receives an instance of [`EventEmitterInterface`](https://github.com/igorw/evenement/blob/master/src/Evenement/EventEmitterInterface.php) as its only argument. Within its implementation of `setEventEmitter()`, a test handler can use this argument to register event callbacks. An example of this is below, taken from [`CliOutputTestHandler`](https://github.com/elazar/phantestic/blob/master/src/TestHandler/CliOutputTestHandler.php), which registers its own methods as callbacks for several events.
 
 ```php
 public function setEventEmitter(EventEmitterInterface $emitter)
