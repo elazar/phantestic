@@ -104,4 +104,4 @@ Supported events may vary depending on the test loader and runner in use.
 
 ### [`ClassmapFileObjectTestLoader`](https://github.com/elazar/phantestic/blob/master/src/TestLoader/ClassmapFileObjectTestLoader.php)
 
-* `phantestic.loader.loaded`: When a test case is loaded, with the test case and associated test class instance and name and test method name as arguments
+* `phantestic.loader.loaded`: When a test case is loaded, with the test case and associated test class name and test method name as arguments
