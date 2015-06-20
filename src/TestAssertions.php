@@ -57,4 +57,9 @@ trait TestAssertions
             throw new \DomainException($message);
         }
     }
+
+    public function assertTrue($condition, $message = '')
+    {
+        $this->assertSame(true, $condition, $message);
+    }
 }
