@@ -86,7 +86,8 @@ public function setEventEmitter(EventEmitterInterface $emitter)
 {
     $emitter->on('phantestic.test.failresult', [$this, 'handleFail']);
     $emitter->on('phantestic.test.passresult', [$this, 'handlePass']);
-    $emitter->on('phantestic.tests.after', [$this, 'printSummary']);
+    $emitter->on('phantestic.tests.before', [$this, 'beforeTests']);
+    $emitter->on('phantestic.tests.after', [$this, 'afterTests']);
 }
 ```
 
