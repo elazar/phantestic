@@ -47,7 +47,7 @@ class ClassmapObjectTestLoaderTest
     protected function testLoader(ClassmapObjectTestLoaderSubclass $loader)
     {
         $iterator = $loader->getIterator();
-        $this->assertInstanceOf('\ArrayIterator', $iterator);
+        $this->assertInstanceOf('\Traversable', $iterator);
         $cases = iterator_to_array($iterator);
         $this->assertCount(1, $cases);
         $case = reset($cases);

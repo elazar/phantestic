@@ -73,33 +73,23 @@ abstract class ClassmapObjectTestLoader implements \IteratorAggregate
         $classmap = $this->getClassmap();
         $filter = $this->filter;
         $generator = $this->generator;
-        $tests = [];
         foreach ($classmap as $class => $file) {
             $reflector = new \ReflectionClass($class);
-            $all_methods = array_map(
+            $methods = array_map(
                 function($method) { return $method->name; },
                 $reflector->getMethods(\ReflectionMethod::IS_PUBLIC & ~\ReflectionMethod::IS_STATIC)
             );
-            $test_methods = array_filter(
-                $all_methods,
-                function($method) use ($file, $class, $filter) {
-                    return $filter($file, $class, $method);
+            foreach ($methods as $method) {
+                if (!$filter($file, $class, $method)) {
+                    continue;
                 }
-            );
-            $test_cases = array_map(
-                function($method) use ($class, $generator) {
-                    return $generator($class, $method);
-                },
-                $test_methods
-            );
-            $tests = array_merge($tests, $test_cases);
-            if ($this->emitter) {
-                foreach (array_combine($test_methods, $test_cases) as $method => $test_case) {
-                    $this->emitter->emit('phantestic.loader.loaded', [$test_case, $class, $method]);
+                $case = $generator($class, $method);
+                if ($this->emitter) {
+                    $this->emitter->emit('phantestic.loader.loaded', [$case, $class, $method]);
                 }
+                yield $case;
             }
         }
-        return new \ArrayIterator($tests);
     }
 
     /**
