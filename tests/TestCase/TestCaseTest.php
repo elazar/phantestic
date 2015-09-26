@@ -2,9 +2,9 @@
 
 namespace Phantestic\Tests\TestCase;
 
-use Phantestic\TestAssertions;
 use Phantestic\TestCase\TestCase;
 use Phantestic\TestResult\TestResult;
+use Phantestic\Tests\TestAssertions;
 
 class TestCaseTest
 {

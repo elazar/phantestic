@@ -3,7 +3,7 @@
 namespace Phantestic\Tests\TestLoader;
 
 use Evenement\EventEmitter;
-use Phantestic\TestAssertions;
+use Phantestic\Tests\TestAssertions;
 
 class ClassmapObjectTestLoaderTest
 {

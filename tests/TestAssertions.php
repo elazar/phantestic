@@ -1,6 +1,6 @@
 <?php
 
-namespace Phantestic;
+namespace Phantestic\Tests;
 
 trait TestAssertions
 {

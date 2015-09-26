@@ -3,9 +3,9 @@
 namespace Phantestic\Tests\TestHandler;
 
 use Evenement\EventEmitter;
-use Phantestic\TestAssertions;
 use Phantestic\TestCase\TestCase;
 use Phantestic\TestHandler\CliOutputTestHandler;
+use Phantestic\Tests\TestAssertions;
 
 class CliOutputTestHandlerTest
 {
