@@ -14,7 +14,7 @@ Use [Composer](https://getcomposer.org).
 ```json
 {
     "require-dev": {
-        "elazar/phantestic": "^0.1"
+        "elazar/phantestic": "^0.2"
     }
 }
 ```
