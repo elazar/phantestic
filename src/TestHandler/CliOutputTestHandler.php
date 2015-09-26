@@ -107,6 +107,7 @@ class CliOutputTestHandler implements TestHandlerInterface
 
     protected function formatMemory($memory)
     {
+        $unit = 'b';
         if ($memory >= 1073741824) {
             $memory /= 1073741824;
             $unit = 'G';
@@ -116,8 +117,6 @@ class CliOutputTestHandler implements TestHandlerInterface
         } elseif ($memory >= 1024) {
             $memory /= 1024;
             $unit = 'K';
-        } else {
-            $unit = 'b';
         }
         if (!is_int($memory)) {
             $memory = number_format($memory, 2);
