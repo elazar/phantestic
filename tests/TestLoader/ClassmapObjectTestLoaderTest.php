@@ -18,22 +18,25 @@ class ClassmapObjectTestLoaderTest
     public function testWithOverrides()
     {
         $called = false;
-        $callback = function($case, $class, $method) use (&$called) {
+        $callback = function ($case, $class, $method) use (&$called) {
             $called = true;
             $this->assertInstanceOf('Phantestic\\TestCase\\TestCase', $case);
             $this->assertSame(__NAMESPACE__ . '\\PassingTest', $class);
             $this->assertSame('testPassingTestMethod', $method);
         };
-        $filter = function($file, $class, $method) {
+        $filter = function ($file, $class, $method) {
             return
                 $file === __DIR__ . '/PassingTest.php'
                 && $class === __NAMESPACE__ . '\\PassingTest'
                 && $method === 'testPassingTestMethod';
         };
-        $generator = function($class, $method) {
+        $generator = function ($class, $method) {
             $this->assertSame(__NAMESPACE__ . '\\PassingTest', $class);
             $this->assertSame('testPassingTestMethod', $method);
-            return new \Phantestic\TestCase\TestCase(function(){}, 'foo');
+            $callback = function () {
+                // noop
+            };
+            return new \Phantestic\TestCase\TestCase($callback, 'foo');
         };
         $emitter = new EventEmitter;
         $emitter->on('phantestic.loader.loaded', $callback);

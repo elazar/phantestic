@@ -15,11 +15,16 @@ class CliOutputTestHandlerTest
 
     protected $handler;
 
+    protected $noop;
+
     public function __construct()
     {
         $this->emitter = new EventEmitter;
         $this->handler = new CliOutputTestHandler;
         $this->handler->setEventEmitter($this->emitter);
+        $this->noop = function () {
+            // noop
+        };
     }
 
     public function testBeforeTests()
@@ -32,7 +37,7 @@ class CliOutputTestHandlerTest
     public function testHandleFail()
     {
         ob_start();
-        $case = new TestCase(function(){}, 'name');
+        $case = new TestCase($this->noop, 'name');
         $this->emitter->emit('phantestic.test.failresult', [$case]);
         $this->assertSame('F', ob_get_clean());
     }
@@ -40,7 +45,7 @@ class CliOutputTestHandlerTest
     public function testHandlePass()
     {
         ob_start();
-        $case = new TestCase(function(){}, 'name');
+        $case = new TestCase($this->noop, 'name');
         $this->emitter->emit('phantestic.test.passresult', [$case]);
         $this->assertSame('.', ob_get_clean());
     }
@@ -49,7 +54,7 @@ class CliOutputTestHandlerTest
     {
         ob_start();
         $this->emitter->emit('phantestic.tests.before');
-        $case = new TestCase(function(){}, 'name');
+        $case = new TestCase($this->noop, 'name');
         $this->emitter->emit('phantestic.test.passresult', [$case]);
         $this->emitter->emit('phantestic.tests.after');
         $pattern = "/^\\.\n\n"

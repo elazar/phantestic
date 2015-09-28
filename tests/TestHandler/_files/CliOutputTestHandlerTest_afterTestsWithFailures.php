@@ -14,7 +14,7 @@ $emitter->emit('phantestic.tests.before');
 
 $exception = new \Exception('test failed');
 $case = new TestCase(
-    function() use ($exception) {
+    function () use ($exception) {
         throw $exception;
     },
     'name'

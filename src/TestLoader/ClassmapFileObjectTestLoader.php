@@ -22,8 +22,7 @@ class ClassmapFileObjectTestLoader extends ClassmapObjectTestLoader
         EventEmitterInterface $emitter = null,
         callable $filter = null,
         callable $generator = null
-    )
-    {
+    ) {
         if (!is_readable($path)) {
             throw new \RuntimeException(
                 '$path does not reference a readable file: ' . $path

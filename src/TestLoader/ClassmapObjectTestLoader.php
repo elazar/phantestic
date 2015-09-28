@@ -34,8 +34,7 @@ abstract class ClassmapObjectTestLoader implements \IteratorAggregate
         EventEmitterInterface $emitter = null,
         callable $filter = null,
         callable $generator = null
-    )
-    {
+    ) {
         $this->emitter = $emitter;
         $this->filter = $filter ?: $this->getDefaultFilter();
         $this->generator = $generator ?: $this->getDefaultGenerator();
@@ -46,7 +45,7 @@ abstract class ClassmapObjectTestLoader implements \IteratorAggregate
      */
     protected function getDefaultFilter()
     {
-        return function($file, $class, $method) {
+        return function ($file, $class, $method) {
             return
                 preg_match('/Test\.php$/', $file)
                 && preg_match('/^test/', $method);
@@ -58,7 +57,7 @@ abstract class ClassmapObjectTestLoader implements \IteratorAggregate
      */
     protected function getDefaultGenerator()
     {
-        return function($class, $method) {
+        return function ($class, $method) {
             $callback = [new $class, $method];
             $name = $class . '->' . $method;
             return new \Phantestic\TestCase\TestCase($callback, $name);
@@ -76,7 +75,9 @@ abstract class ClassmapObjectTestLoader implements \IteratorAggregate
         foreach ($classmap as $class => $file) {
             $reflector = new \ReflectionClass($class);
             $methods = array_map(
-                function($method) { return $method->name; },
+                function ($method) {
+                    return $method->name;
+                },
                 $reflector->getMethods(\ReflectionMethod::IS_PUBLIC & ~\ReflectionMethod::IS_STATIC)
             );
             foreach ($methods as $method) {

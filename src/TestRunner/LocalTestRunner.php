@@ -69,7 +69,7 @@ class LocalTestRunner
     {
         $invalid = array_filter(
             $this->handlers,
-            function($handler) {
+            function ($handler) {
                 return !$handler instanceof TestHandlerInterface;
             }
         );
