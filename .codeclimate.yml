@@ -5,4 +5,7 @@ engines:
       file_extensions: "php"
   phpmd:
     enabled: true
-    
+ratings:
+  paths:
+  - "src/**"
+  - "tests/**"
