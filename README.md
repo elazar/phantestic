@@ -114,6 +114,6 @@ Tests may be instance methods of classes, but they don't have to be since indivi
 * There is no equivalent to `PHPUnit_Framework_TestCase`. You may create your own base class if you wish, but it is not required.
 * There are no equivalents to `setUp()` or `tearDown()`. Consider using either `__construct()` and `__destruct()` or test handlers in conjunction with a loader that supports `phantestic.test.before` and `phantestic.test.after`.
 * If you wish for tests to be located using the same criteria as PHPUnit and you're using Composer, just use [`ClassmapFileObjectTestLoader`](https://github.com/elazar/phantestic/blob/master/src/TestLoader/ClassmapFileObjectTestLoader.php) and specify only the classmap file path when instantiating it.
-* Assertions are merely methods that throw exceptions if expected conditions are not met. Consider [supplementary libraries](https://github.com/peridot-php/peridot/wiki/Matchers).
+* Assertions are merely methods that throw exceptions if expected conditions are not met. Consider supplementary libraries like [those recommended for use with Peridot](https://github.com/peridot-php/peridot/wiki/Matchers) or [beberlei/assert](https://github.com/beberlei/assert).
 * Mocking is not supported natively. Consider supplementary libraries like [Phake](https://github.com/mlively/phake) or [Mockery](https://github.com/padraic/mockery).
 * Database seeding and assertions are not supported natively. Consider supplementary libraries like [Phactory](https://github.com/chriskite/phactory) or [Faker](https://github.com/fzaninotto/Faker).
