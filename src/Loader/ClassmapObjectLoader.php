@@ -1,10 +1,10 @@
 <?php
 
-namespace Phantestic\TestLoader;
+namespace Phantestic\Loader;
 
 use Evenement\EventEmitterInterface;
 
-abstract class ClassmapObjectTestLoader implements \IteratorAggregate
+abstract class ClassmapObjectLoader implements \IteratorAggregate
 {
     /**
      * @var \Evenement\EventEmitterInterface
@@ -60,7 +60,7 @@ abstract class ClassmapObjectTestLoader implements \IteratorAggregate
         return function ($class, $method) {
             $callback = [new $class, $method];
             $name = $class . '->' . $method;
-            return new \Phantestic\TestCase\TestCase($callback, $name);
+            return new \Phantestic\Test\Test($callback, $name);
         };
     }
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace Phantestic\TestHandler;
+namespace Phantestic\Handler;
 
 use Evenement\EventEmitterInterface;
 
-interface TestHandlerInterface
+interface HandlerInterface
 {
     public function setEventEmitter(EventEmitterInterface $emitter);
 }

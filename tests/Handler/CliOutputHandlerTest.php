@@ -1,15 +1,15 @@
 <?php
 
-namespace Phantestic\Tests\TestHandler;
+namespace Phantestic\Tests\Handler;
 
 use Evenement\EventEmitter;
-use Phantestic\TestCase\TestCase;
-use Phantestic\TestHandler\CliOutputTestHandler;
-use Phantestic\Tests\TestAssertions;
+use Phantestic\Handler\CliOutputHandler;
+use Phantestic\Test\Test;
+use Phantestic\Tests\Assertions;
 
-class CliOutputTestHandlerTest
+class CliOutputHandlerTest
 {
-    use TestAssertions;
+    use Assertions;
 
     protected $emitter;
 
@@ -20,7 +20,7 @@ class CliOutputTestHandlerTest
     public function __construct()
     {
         $this->emitter = new EventEmitter;
-        $this->handler = new CliOutputTestHandler;
+        $this->handler = new CliOutputHandler;
         $this->handler->setEventEmitter($this->emitter);
         $this->noop = function () {
             // noop
@@ -37,7 +37,7 @@ class CliOutputTestHandlerTest
     public function testHandleFail()
     {
         ob_start();
-        $case = new TestCase($this->noop, 'name');
+        $case = new Test($this->noop, 'name');
         $this->emitter->emit('phantestic.test.failresult', [$case]);
         $this->assertSame('F', ob_get_clean());
     }
@@ -45,7 +45,7 @@ class CliOutputTestHandlerTest
     public function testHandlePass()
     {
         ob_start();
-        $case = new TestCase($this->noop, 'name');
+        $case = new Test($this->noop, 'name');
         $this->emitter->emit('phantestic.test.passresult', [$case]);
         $this->assertSame('.', ob_get_clean());
     }
@@ -54,7 +54,7 @@ class CliOutputTestHandlerTest
     {
         ob_start();
         $this->emitter->emit('phantestic.tests.before');
-        $case = new TestCase($this->noop, 'name');
+        $case = new Test($this->noop, 'name');
         $this->emitter->emit('phantestic.test.passresult', [$case]);
         $this->emitter->emit('phantestic.tests.after');
         $pattern = "/^\\.\n\n"
@@ -65,7 +65,7 @@ class CliOutputTestHandlerTest
 
     public function testAfterTestsWithFailures()
     {
-        $file = __DIR__ . '/_files/CliOutputTestHandlerTest_afterTestsWithFailures.php';
+        $file = __DIR__ . '/_files/CliOutputHandlerTest_afterTestsWithFailures.php';
         $spec = [
             0 => ['pipe', 'r'],
             1 => ['pipe', 'w'],

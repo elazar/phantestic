@@ -1,12 +1,12 @@
 <?php
 
-namespace Phantestic\TestRunner;
+namespace Phantestic\Runner;
 
 use Evenement\EventEmitter;
 use Evenement\EventEmitterInterface;
-use Phantestic\TestHandler\TestHandlerInterface;
+use Phantestic\Handler\HandlerInterface;
 
-class LocalTestRunner
+class LocalRunner
 {
     /**
      * @var \Evenement\EventEmitterInterface
@@ -19,7 +19,7 @@ class LocalTestRunner
     protected $loader;
 
     /**
-     * @var \Phantestic\TestHandler\TestHandlerInterface[]
+     * @var \Phantestic\Handler\HandlerInterface[]
      */
     protected $handlers;
 
@@ -70,12 +70,12 @@ class LocalTestRunner
         $invalid = array_filter(
             $this->handlers,
             function ($handler) {
-                return !$handler instanceof TestHandlerInterface;
+                return !$handler instanceof HandlerInterface;
             }
         );
         if (!empty($invalid)) {
             $classes = implode(', ', array_map('get_class', $invalid));
-            $interface = TestHandlerInterface::class;
+            $interface = HandlerInterface::class;
             throw new \DomainException(
                 'Handler classes do not implement ' . $interface . ': ' . $classes
             );

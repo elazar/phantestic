@@ -1,20 +1,20 @@
 <?php
 
-namespace Phantestic\TestHandler;
+namespace Phantestic\Handler;
 
 use Evenement\EventEmitterInterface;
-use Phantestic\TestHandler\TestHandlerInterface;
-use Phantestic\TestCase\TestCaseInterface;
+use Phantestic\Handler\HandlerInterface;
+use Phantestic\Test\TestInterface;
 
-class CliOutputTestHandler implements TestHandlerInterface
+class CliOutputHandler implements HandlerInterface
 {
     /**
-     * @var \Phantestic\TestCase\TestCaseInterface[]
+     * @var \Phantestic\Test\TestInterface[]
      */
     protected $failures;
 
     /**
-     * @var \Phantestic\TestCase\TestCaseInterface[]
+     * @var \Phantestic\Test\TestInterface[]
      */
     protected $passes;
 
@@ -44,14 +44,14 @@ class CliOutputTestHandler implements TestHandlerInterface
         $this->time = microtime(true);
     }
 
-    public function handleFail(TestCaseInterface $case)
+    public function handleFail(TestInterface $case)
     {
         echo 'F';
 
         $this->failures[] = $case;
     }
 
-    public function handlePass(TestCaseInterface $case)
+    public function handlePass(TestInterface $case)
     {
         echo '.';
 

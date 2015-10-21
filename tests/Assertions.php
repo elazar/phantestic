@@ -2,7 +2,7 @@
 
 namespace Phantestic\Tests;
 
-trait TestAssertions
+trait Assertions
 {
     public function assertInstanceOf($expected, $actual, $message = '')
     {

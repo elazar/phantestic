@@ -1,6 +1,6 @@
 <?php
 
-namespace Phantestic\Tests\TestLoader;
+namespace Phantestic\Tests\Loader;
 
 class PassingTest
 {

@@ -3,17 +3,17 @@
 require __DIR__ . '/../../../vendor/autoload.php';
 
 use Evenement\EventEmitter;
-use Phantestic\TestCase\TestCase;
-use Phantestic\TestHandler\CliOutputTestHandler;
+use Phantestic\Handler\CliOutputHandler;
+use Phantestic\Test\Test;
 
 $emitter = new EventEmitter;
-$handler = new CliOutputTestHandler;
+$handler = new CliOutputHandler;
 $handler->setEventEmitter($emitter);
 
 $emitter->emit('phantestic.tests.before');
 
 $exception = new \Exception('test failed');
-$case = new TestCase(
+$case = new Test(
     function () use ($exception) {
         throw $exception;
     },

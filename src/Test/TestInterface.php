@@ -1,8 +1,8 @@
 <?php
 
-namespace Phantestic\TestCase;
+namespace Phantestic\Test;
 
-interface TestCaseInterface
+interface TestInterface
 {
     /**
      * @return void
@@ -15,7 +15,7 @@ interface TestCaseInterface
     public function getName();
 
     /**
-     * @return \Phantestic\TestResult\TestResult
+     * @return \Phantestic\Result\Result
      */
     public function getResult();
 }

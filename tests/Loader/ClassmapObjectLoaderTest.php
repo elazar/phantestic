@@ -1,17 +1,17 @@
 <?php
 
-namespace Phantestic\Tests\TestLoader;
+namespace Phantestic\Tests\Loader;
 
 use Evenement\EventEmitter;
-use Phantestic\Tests\TestAssertions;
+use Phantestic\Tests\Assertions;
 
-class ClassmapObjectTestLoaderTest
+class ClassmapObjectLoaderTest
 {
-    use TestAssertions;
+    use Assertions;
 
     public function testWithDefaults()
     {
-        $loader = new ClassmapObjectTestLoaderSubclass;
+        $loader = new ClassmapObjectLoaderSubclass;
         $this->testLoader($loader);
     }
 
@@ -20,7 +20,7 @@ class ClassmapObjectTestLoaderTest
         $called = false;
         $callback = function ($case, $class, $method) use (&$called) {
             $called = true;
-            $this->assertInstanceOf('Phantestic\\TestCase\\TestCase', $case);
+            $this->assertInstanceOf('Phantestic\\Test\\Test', $case);
             $this->assertSame(__NAMESPACE__ . '\\PassingTest', $class);
             $this->assertSame('testPassingTestMethod', $method);
         };
@@ -36,26 +36,26 @@ class ClassmapObjectTestLoaderTest
             $callback = function () {
                 // noop
             };
-            return new \Phantestic\TestCase\TestCase($callback, 'foo');
+            return new \Phantestic\Test\Test($callback, 'foo');
         };
         $emitter = new EventEmitter;
         $emitter->on('phantestic.loader.loaded', $callback);
 
-        $loader = new ClassmapObjectTestLoaderSubclass($emitter, $filter, $generator);
+        $loader = new ClassmapObjectLoaderSubclass($emitter, $filter, $generator);
         $this->testLoader($loader);
 
         $this->assertTrue($called, 'Event callback was not called');
     }
 
-    protected function testLoader(ClassmapObjectTestLoaderSubclass $loader)
+    protected function testLoader(ClassmapObjectLoaderSubclass $loader)
     {
         $iterator = $loader->getIterator();
         $this->assertInstanceOf('\Traversable', $iterator);
         $cases = iterator_to_array($iterator);
         $this->assertCount(1, $cases);
         $case = reset($cases);
-        $this->assertInstanceOf('\Phantestic\TestCase\TestCase', $case);
+        $this->assertInstanceOf('\Phantestic\Test\Test', $case);
         $case->run();
-        $this->assertInstanceOf('\Phantestic\TestResult\PassResult', $case->getResult());
+        $this->assertInstanceOf('\Phantestic\Result\PassResult', $case->getResult());
     }
 }

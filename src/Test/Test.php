@@ -1,12 +1,12 @@
 <?php
 
-namespace Phantestic\TestCase;
+namespace Phantestic\Test;
 
-use Phantestic\TestResult\FailResult;
-use Phantestic\TestResult\PassResult;
-use Phantestic\TestResult\TestResult;
+use Phantestic\Result\FailResult;
+use Phantestic\Result\PassResult;
+use Phantestic\Result\Result;
 
-class TestCase implements TestCaseInterface
+class Test implements TestInterface
 {
     /**
      * @var callable
@@ -19,7 +19,7 @@ class TestCase implements TestCaseInterface
     protected $name;
 
     /**
-     * @var \Phantestic\TestResult\TestResultInterface
+     * @var \Phantestic\Result\ResultInterface
      */
     protected $result;
 
@@ -42,7 +42,7 @@ class TestCase implements TestCaseInterface
 
         try {
             call_user_func($this->callback);
-        } catch (TestResult $result) {
+        } catch (Result $result) {
             $this->result = $result;
         } catch (\Exception $e) {
             $this->result = new FailResult($e);
@@ -64,7 +64,7 @@ class TestCase implements TestCaseInterface
     }
 
     /**
-     * @return \Phantestic\TestResult\TestResult
+     * @return \Phantestic\Result\Result
      */
     public function getResult()
     {

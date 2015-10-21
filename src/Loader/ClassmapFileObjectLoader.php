@@ -1,10 +1,10 @@
 <?php
 
-namespace Phantestic\TestLoader;
+namespace Phantestic\Loader;
 
 use Evenement\EventEmitterInterface;
 
-class ClassmapFileObjectTestLoader extends ClassmapObjectTestLoader
+class ClassmapFileObjectLoader extends ClassmapObjectLoader
 {
     /**
      * @var string

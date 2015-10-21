@@ -1,23 +1,23 @@
 <?php
 
-namespace Phantestic\Tests\TestCase;
+namespace Phantestic\Tests\Test;
 
-use Phantestic\TestCase\TestCase;
-use Phantestic\TestResult\TestResult;
-use Phantestic\Tests\TestAssertions;
+use Phantestic\Result\Result;
+use Phantestic\Test\Test;
+use Phantestic\Tests\Assertions;
 
-class TestCaseTest
+class TestTest
 {
-    use TestAssertions;
+    use Assertions;
 
     public function testRunWithPassingTest()
     {
         $callback = function () {
             // noop
         };
-        $case = new TestCase($callback, 'name');
+        $case = new Test($callback, 'name');
         $case->run();
-        $this->assertInstanceOf('\Phantestic\TestResult\PassResult', $case->getResult());
+        $this->assertInstanceOf('\Phantestic\Result\PassResult', $case->getResult());
     }
 
     public function testRunWithFailingTest()
@@ -25,18 +25,18 @@ class TestCaseTest
         $callback = function () {
             throw new \RuntimeException('test failure');
         };
-        $case = new TestCase($callback, 'name');
+        $case = new Test($callback, 'name');
         $case->run();
-        $this->assertInstanceOf('\Phantestic\TestResult\FailResult', $case->getResult());
+        $this->assertInstanceOf('\Phantestic\Result\FailResult', $case->getResult());
     }
 
     public function testRunWithGenericTestResult()
     {
-        $result = new TestResult('test result');
+        $result = new Result('test result');
         $callback = function () use ($result) {
             throw $result;
         };
-        $case = new TestCase($callback, 'name');
+        $case = new Test($callback, 'name');
         $case->run();
         $this->assertSame($result, $case->getResult());
     }
@@ -46,7 +46,7 @@ class TestCaseTest
         $callback = function () {
             // noop
         };
-        $test = new TestCase($callback, 'foo');
+        $test = new Test($callback, 'foo');
         $this->assertSame('foo', $test->getName());
     }
 }

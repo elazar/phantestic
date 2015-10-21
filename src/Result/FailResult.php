@@ -1,8 +1,8 @@
 <?php
 
-namespace Phantestic\TestResult;
+namespace Phantestic\Result;
 
-class FailResult extends TestResult
+class FailResult extends Result
 {
     /**
      * @var \Exception

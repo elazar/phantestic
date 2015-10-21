@@ -1,10 +1,10 @@
 <?php
 
-namespace Phantestic\Tests\TestLoader;
+namespace Phantestic\Tests\Loader;
 
-use Phantestic\TestLoader\ClassmapObjectTestLoader;
+use Phantestic\Loader\ClassmapObjectLoader;
 
-class ClassmapObjectTestLoaderSubclass extends ClassmapObjectTestLoader
+class ClassmapObjectLoaderSubclass extends ClassmapObjectLoader
 {
     public function getClassmap()
     {
