@@ -4,7 +4,7 @@ A small PHP testing framework that aims to be simple, fast, modern, and flexible
 
 Currently in a very alpha state. Feel free to mess around with it, but expect things to break.
 
-[![Build Status](https://secure.travis-ci.org/elazar/phantestic.png?branch=master)](http://travis-ci.org/elazar/phantestic)
+[![Build Status](https://img.shields.io/travis/elazar/phantestic.svg)](http://travis-ci.org/elazar/phantestic)
 [![Code Climate](https://codeclimate.com/github/elazar/phantestic/badges/gpa.svg)](https://codeclimate.com/github/elazar/phantestic)
 
 ## Installation
