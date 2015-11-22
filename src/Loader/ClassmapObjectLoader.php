@@ -2,100 +2,70 @@
 
 namespace Phantestic\Loader;
 
+use Phantestic\Classmap\Builder\BuilderInterface as ClassmapBuilder;
+use Phantestic\Iterator\MethodIterator;
+use Phantestic\Test\Builder\MethodBuilder;
 use Evenement\EventEmitterInterface;
 
-abstract class ClassmapObjectLoader implements \IteratorAggregate
+class ClassmapObjectLoader implements \IteratorAggregate
 {
+    /**
+     * @var \Phantestic\Classmap\Builder\BuilderInterface
+     */
+    protected $classmap;
+
     /**
      * @var \Evenement\EventEmitterInterface
      */
     protected $emitter;
 
     /**
-     * @var callable
-     */
-    protected $filter;
-
-    /**
-     * @var callable
-     */
-    protected $generator;
-
-    /**
-     * @param \Evenement\EventEmitterInterface $emitter
-     * @param callable $filter Callback to filter classmap entries for tests,
-     *        with the signature (string $file, string $class, string $method):
-     *        boolean
-     * @param callable $generator Callable to generate a test case instance
-     *        from an associated callback and name, with the signature
-     *        (callable $test, string $name): \Phantestic\TestCase\TestCaseInterface
+     * @param \Phantestic\Classmap\Builder\BuilderInterface $classmap
      */
     public function __construct(
-        EventEmitterInterface $emitter = null,
-        callable $filter = null,
-        callable $generator = null
+        ClassmapBuilder $classmap
     ) {
+        $this->classmap = $classmap;
+        $this->emitter = null;
+    }
+
+    /**
+     * @param EventEmitterInterface $emitter
+     */
+    public function setEmitter(EventEmitterInterface $emitter)
+    {
         $this->emitter = $emitter;
-        $this->filter = $filter ?: $this->getDefaultFilter();
-        $this->generator = $generator ?: $this->getDefaultGenerator();
     }
 
     /**
-     * @return callable
+     * @return \Phantestic\Iterator\MethodIterator
      */
-    protected function getDefaultFilter()
+    protected function getMethodIterator()
     {
-        return function ($file, $class, $method) {
-            return
-                preg_match('/Test\.php$/', $file)
-                && preg_match('/^test/', $method);
-        };
+        return new MethodIterator($this->classmap->getClassmap());
     }
 
     /**
-     * @return callable
+     * @param \ReflectionMethod $method
+     * @return \Phantestic\Test\TestInterface
      */
-    protected function getDefaultGenerator()
+    protected function buildTest(\ReflectionMethod $method)
     {
-        return function ($class, $method) {
-            $callback = [new $class, $method];
-            $name = $class . '->' . $method;
-            return new \Phantestic\Test\Test($callback, $name);
-        };
+        $builder = new MethodBuilder($method);
+        return $builder->getTest();
     }
 
     /**
-     * @return \ArrayIterator
+     * @return \Generator
      */
     public function getIterator()
     {
-        $classmap = $this->getClassmap();
-        $filter = $this->filter;
-        $generator = $this->generator;
-        foreach ($classmap as $class => $file) {
-            $reflector = new \ReflectionClass($class);
-            $methods = array_map(
-                function ($method) {
-                    return $method->name;
-                },
-                $reflector->getMethods(\ReflectionMethod::IS_PUBLIC & ~\ReflectionMethod::IS_STATIC)
-            );
-            foreach ($methods as $method) {
-                if (!$filter($file, $class, $method)) {
-                    continue;
-                }
-                $case = $generator($class, $method);
-                if ($this->emitter) {
-                    $this->emitter->emit('phantestic.loader.loaded', [$case, $class, $method]);
-                }
-                yield $case;
+        foreach ($this->getMethodIterator() as $method) {
+            $test = $this->buildTest($method);
+            if ($this->emitter) {
+                $this->emitter->emit('phantestic.loader.loaded', [$test, $method]);
             }
+            yield $test;
         }
     }
-
-    /**
-     * @return array Associative array mapping fully qualified class names to
-     *         file paths
-     */
-    abstract protected function getClassmap();
 }

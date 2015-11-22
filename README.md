@@ -105,7 +105,7 @@ Supported events may vary depending on the test loader and runner in use.
 
 ### [`ClassmapFileObjectLoader`](https://github.com/elazar/phantestic/blob/master/src/Loader/ClassmapFileObjectLoader.php)
 
-* `phantestic.loader.loaded`: When a test case is loaded, with the test case and associated test class name and test method name as arguments
+* `phantestic.loader.loaded`: When a test case is loaded, with the test case and reflector for the test method as arguments
 
 ## Differences from PHPUnit
 
